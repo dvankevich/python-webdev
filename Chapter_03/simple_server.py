@@ -28,4 +28,4 @@ print(res.status, res.reason)
 data = res.read()
 print(data)
 
-httpd.shutdown()  # Закоментуйте рядок якщо хочете працювати з клієнтом
+# httpd.shutdown()  # Закоментуйте рядок якщо хочете працювати з клієнтом
