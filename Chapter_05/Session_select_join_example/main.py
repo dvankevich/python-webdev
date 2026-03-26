@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     # Фільтрація користувачів за віком
     filtered_users = session.query(User).filter(User.age > 21).all()
-    print("\nFiltered users (age > 18):")
+    print("\nFiltered users (age > 21):")
     for user in filtered_users:
         print(user)
 
@@ -45,10 +45,10 @@ if __name__ == "__main__":
         print(f"User: {user}, Address: {address}")
 
     # FULL JOIN користувачів та адрес
-    result = session.query(User, Address).outerjoin(Address, full=True).all()
-    print("\nUsers with addresses (FULL JOIN):")
-    for user, address in result:
-        print(f"User: {user}, Address: {address}")
+    # result = session.query(User, Address).outerjoin(Address, full=True).all()
+    # print("\nUsers with addresses (FULL JOIN):")
+    # for user, address in result:
+    #     print(f"User: {user}, Address: {address}")
 
     # Агрегація - підрахунок кількості користувачів
     count = session.query(func.count(User.id)).scalar()
