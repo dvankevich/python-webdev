@@ -5,6 +5,9 @@ engine = create_engine("sqlite:///example.db")
 
 if __name__ == "__main__":
     with engine.connect() as connection:
+        # get sqlite version
+        version_info = engine.dialect.server_version_info
+        print(f"SQLite version using SQLAlchemy: {version_info}")
         # Вибірка всіх користувачів
         stmt = select(User)
         result = connection.execute(stmt)
@@ -51,21 +54,21 @@ if __name__ == "__main__":
             )
 
         # FULL JOIN користувачів та адрес
-        stmt = select(User, Address).outerjoin(Address, full=True)
-        result = connection.execute(stmt)
-        print("\nUsers with addresses (FULL JOIN):")
-        for row in result:
-            user = (
-                f"<User(id={row.id}, name='{row.name}', age={row.age})>"
-                if row.id
-                else None
-            )
-            address = (
-                f"<Address(id={row[3]}, street='{row[4]}', city='{row[5]}')"
-                if row[3]
-                else None
-            )
-            print(f"User: {user}, Address: {address}>")
+        # stmt = select(User, Address).outerjoin(Address, full=True)
+        # result = connection.execute(stmt)
+        # print("\nUsers with addresses (FULL JOIN):")
+        # for row in result:
+        #     user = (
+        #         f"<User(id={row.id}, name='{row.name}', age={row.age})>"
+        #         if row.id
+        #         else None
+        #     )
+        #     address = (
+        #         f"<Address(id={row[3]}, street='{row[4]}', city='{row[5]}')"
+        #         if row[3]
+        #         else None
+        #     )
+        #     print(f"User: {user}, Address: {address}>")
 
         # Агрегація - підрахунок кількості користувачів
         stmt = select(func.count(User.id))
