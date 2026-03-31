@@ -8,6 +8,10 @@ app = FastAPI()
 def root():
     return {"message": "Welcome to FastAPI!"}
 
+@app.get("/api/ping")
+def ping():
+    return {"message": "pong"}
+
 
 @app.get("/note/new")
 async def read_new_notes():
@@ -15,7 +19,9 @@ async def read_new_notes():
 
 
 @app.get("/notes/{note_id}")
-async def read_note(note_id: int = Path(description="The ID of the note to get", gt=0, le=10)):
+async def read_note(
+    note_id: int = Path(description="The ID of the note to get", gt=0, le=10)
+):
     return {"note": note_id}
 
 
@@ -44,9 +50,13 @@ async def read_headers(user_agent: str = Header(default=None)):
 async def read_all_headers(request: Request):
     return {"headers": dict(request.headers)}
 
+
 @app.get("/custom-header")
-async def read_custom_header(x_custom: str = Header(default=None, min_length=3, max_length=50)):
+async def read_custom_header(
+    x_custom: str = Header(default=None, min_length=3, max_length=50)
+):
     return {"X-Custom": x_custom}
+
 
 if __name__ == "__main__":
     import uvicorn
